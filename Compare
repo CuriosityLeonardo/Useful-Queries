@@ -1,0 +1,22 @@
+WITH new AS (
+    SELECT field_1, field_2, field_3 FROM table
+),
+old AS (
+    SELECT field_1, field_2, field_3 FROM old_table
+),
+new_without_old AS (
+    SELECT * FROM new
+    EXCEPT
+    SELECT * FROM old
+),
+old_without_new AS (
+    SELECT * FROM old
+    EXCEPT
+    SELECT * FROM new
+),
+combined_difference AS (
+    SELECT * FROM new_without_old
+    UNION ALL
+    SELECT * FROM old_without_new
+)
+SELECT * FROM combined_difference;
