@@ -5,14 +5,14 @@ old AS (
     SELECT field_1, field_2, field_3 FROM old_table
 ),
 new_without_old AS (
-    SELECT * FROM new
+    SELECT *, 'new' AS source FROM new
     EXCEPT
-    SELECT * FROM old
+    SELECT *, 'new' AS source FROM old
 ),
 old_without_new AS (
-    SELECT * FROM old
+    SELECT *, 'old' AS source FROM old
     EXCEPT
-    SELECT * FROM new
+    SELECT *, 'old' AS source FROM new
 ),
 combined_difference AS (
     SELECT * FROM new_without_old
